@@ -5,9 +5,9 @@
 
 # PM Skills Marketplace: The AI Operating System for Better Product Decisions
 
-> 65 PM skills and 36 chained workflows across 8 plugins. Claude Code, Cowork, and more. From discovery to strategy, execution, launch, and growth. 
+> 68 PM skills and 42 chained workflows across 9 plugins. Claude Code, Cowork, and more. From discovery to strategy, execution, launch, growth, and shipping AI-built code. 
 
-![Plugin overview](.docs/images/plugins-overview.webp)
+![PM Skills marketplace: skills, commands, and all 9 plugins at a glance](.docs/images/plugins.png)
 
 Designed for Claude Code and Cowork. Skills compatible with other AI assistants.
 
@@ -31,13 +31,15 @@ The result: better product decisions, not just faster documents.
 
 ## How It Works (Skills, Commands, Plugins)
 
+![Example prompts: a skill and two commands (/write-prd, /ship-check) in action](.docs/images/examples.png)
+
 **Skills** are the building blocks of the marketplace. Each skill gives Claude domain knowledge, analytical frameworks, or a guided workflow for a specific PM task. Some skills also work as reusable foundations that multiple commands share. 
 
 Skills are loaded automatically when relevant to the conversation — no explicit invocation needed. If needed (e.g., prioritizing skills over general knowledge), you can **force loading skills** with `/plugin-name:skill-name` or `/skill-name` (Claude will add the prefix).
 
 **Commands** are user-triggered workflows invoked with `/command-name`. They chain one or more skills into an end-to-end process. For example, `/discover` chains four skills together: brainstorm-ideas → identify-assumptions → prioritize-assumptions → brainstorm-experiments.
 
-**Plugins** group related skills and commands into installable packages. Each plugin covers a PM domain — discovery, strategy, execution, and so on. Installing the marketplace gives you all 8 plugins at once.
+**Plugins** group related skills and commands into installable packages. Each plugin covers a PM domain — discovery, strategy, execution, and so on. Installing the marketplace gives you all 9 plugins at once.
 
 ![How skills work](.docs/images/how-skills-work.webp)
 
@@ -54,7 +56,7 @@ Commands are designed to flow into each other, matching the PM workflow. After a
 3. Select **Add marketplace from GitHub**
 4. Enter: `phuryn/pm-skills`
 
-All 8 plugins install automatically. You get both commands (`/discover`, `/strategy`, etc.) and skills.
+All 9 plugins install automatically. You get both commands (`/discover`, `/strategy`, etc.) and skills.
 
 ![Installing PM Skills in Claude Cowork](.docs/images/pm-skills-install.gif)
 
@@ -73,6 +75,7 @@ claude plugin install pm-data-analytics@pm-skills
 claude plugin install pm-marketing-growth@pm-skills
 claude plugin install pm-go-to-market@pm-skills
 claude plugin install pm-execution@pm-skills
+claude plugin install pm-ai-shipping@pm-skills
 ```
 
 ### Other AI assistants (skills only)
@@ -188,11 +191,11 @@ Commands:
 </details>
 
 <details>
-<summary><strong>3. pm-execution</strong> — PRDs, OKRs, roadmaps, sprints, retros, release notes, stakeholder management (15 skills, 10 commands)</summary>
+<summary><strong>3. pm-execution</strong> — PRDs, OKRs, roadmaps, sprints, retros, release notes, stakeholder management (16 skills, 11 commands)</summary>
 
 Day-to-day product management: PRDs, OKRs, roadmaps, sprints, retrospectives, release notes, pre-mortems, stakeholder management, user stories, and prioritization frameworks.
 
-**Skills (15):**
+**Skills (16):**
 
 - `create-prd` — Comprehensive 8-section PRD template
 - `brainstorm-okrs` — Team-level OKRs aligned with company objectives
@@ -209,14 +212,16 @@ Day-to-day product management: PRDs, OKRs, roadmaps, sprints, retrospectives, re
 - `test-scenarios` — Test scenarios: happy paths, edge cases, error handling
 - `dummy-dataset` — Realistic dummy datasets as CSV, JSON, SQL, or Python
 - `prioritization-frameworks` — Reference guide to 9 prioritization frameworks (Opportunity Score, ICE, RICE, MoSCoW, Kano, etc.)
+- `strategy-red-team` — Adversarial stress-test of a plan: surface load-bearing assumptions, name what would make each one fail, and rank by cheapest test
 
-**Commands (10):**
+**Commands (11):**
 
 - `/write-prd` — Create a PRD from a feature idea or problem statement
 - `/plan-okrs` — Brainstorm team-level OKRs
 - `/transform-roadmap` — Convert a feature-based roadmap into outcome-focused
 - `/sprint` — Sprint lifecycle (`plan|retro|release`)
 - `/pre-mortem` — Pre-mortem risk analysis on a PRD or launch plan
+- `/red-team-prd` — Adversarially stress-test a PRD, roadmap, or strategy and rank the riskiest assumptions by cheapest test
 - `/meeting-notes` — Summarize a meeting transcript into structured notes
 - `/stakeholder-map` — Map stakeholders and create a communication plan
 - `/write-stories` — Break features into backlog items (`user|job|wwa`)
@@ -397,6 +402,38 @@ Commands:
 - `/review-resume [attach your PM resume]`
 - `/tailor-resume [attach resume + paste job description]`
 - `/proofread Here's the draft of our Q1 investor update`
+
+</details>
+
+<details>
+<summary><strong>9. pm-ai-shipping</strong> — AI Shipping Kit: document a vibe-coded app, audit security and performance, map test coverage, compile a shipping packet (2 skills, 5 commands)</summary>
+
+For PMs and founders accountable for AI-built code. AI agents write code fast but leave no record of *intent* — what the system should do, who may do what, where the secrets live, which rules are actually verified. This kit restores reviewability: it documents the system, then audits the gap between what the docs say and what the code actually does — the class of bug generic scanners miss.
+
+**Skills (2):**
+
+- `shipping-artifacts` — The durable documentation set that makes an AI-built app reviewable: a core every app needs (architecture, user/permission flows, permissions, variables/secrets, test-coverage map) plus conditional docs added only when they apply (emails, cron, SEO, embedded agents/automation). Defines what each doc must capture and how a reviewer uses it
+- `intended-vs-implemented` — The method for finding the gap between what a system is documented to do and what the code actually does, with cited evidence on both sides
+
+**Commands (5):**
+
+- `/ship-check` — Turn a vibe-coded repo into a reviewer-ready shipping packet: document, wire agent context, run security and performance audits, map test coverage, and compile the results
+- `/document-app` — Reverse-engineer a codebase into the system documents reviewers and auditors need — a core set (architecture, flows, permissions, variables) plus conditional docs (emails, cron, SEO, automation) when they apply
+- `/derive-tests` — Turn documented intent into a test-coverage map: inventory the tests that exist today, separate them from proposed tests and unverified gaps, and recommend a green-before-merge CI gate
+- `/security-audit-static` — Static security audit: map trust boundaries, cross-reference documented intent, self-refute every finding, and report only evidence-backed risks
+- `/performance-audit-static` — Static performance audit: find over-fetching, missing indexes, and caching opportunities, ranked by effort and impact
+
+**Examples:**
+
+Skills:
+- `What documentation does my Supabase app need before someone can review it?`
+- `Where does what this code does diverge from what the docs say it should do?`
+
+Commands:
+- `/ship-check the payments service`
+- `/document-app — Reverse-engineer the system docs for this repo`
+- `/derive-tests — Which documented rules have no test yet?`
+- `/security-audit-static src/api`
 
 </details>
 
