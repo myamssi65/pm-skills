@@ -76,6 +76,38 @@ claude plugin install pm-execution@pm-skills
 claude plugin install pm-ai-shipping@pm-skills
 ```
 
+### Codex CLI (OpenAI)
+
+Codex reads the same plugin marketplace file as Claude Code, so you can install PM Skills natively — no conversion or file-copying needed:
+
+```bash
+# Step 1: Add the marketplace
+codex plugin marketplace add phuryn/pm-skills
+
+# Step 2: Install the plugins you want
+codex plugin add pm-toolkit@pm-skills
+codex plugin add pm-product-strategy@pm-skills
+codex plugin add pm-product-discovery@pm-skills
+codex plugin add pm-market-research@pm-skills
+codex plugin add pm-data-analytics@pm-skills
+codex plugin add pm-marketing-growth@pm-skills
+codex plugin add pm-go-to-market@pm-skills
+codex plugin add pm-execution@pm-skills
+codex plugin add pm-ai-shipping@pm-skills
+```
+
+**What you get:** every skill (the PM frameworks), available to Codex and invocable by name. Install whole plugins rather than cherry-picking individual skills — a workflow usually relies on several skills that ship together.
+
+**What's different from Claude Code:** the `/slash` commands (`/discover`, `/write-prd`, …) install but don't run as Codex slash commands — Codex plugins don't expose commands. To run a workflow, just describe the steps in plain language, for example:
+
+> Run product discovery on *[your idea]*: brainstorm options, map assumptions, prioritize the risky ones, then design experiments — pause between each step.
+
+**Optional — let Codex turn the workflows into skills.** Because the command files ship inside each installed plugin, you can ask Codex to convert the ones you use most:
+
+> Read the command files in the pm-execution plugin and create equivalent Codex skills for the workflows I use most often.
+
+This is a best-effort, model-driven conversion (some Claude-specific command syntax won't translate), but it's a quick way to get the guided workflows on Codex without leaving the CLI.
+
 ### Other AI assistants (skills only)
 
 The `skills/*/SKILL.md` files follow the universal skill format and work with any tool that reads it. Commands (`/slash-commands`) are Claude-specific.
@@ -85,7 +117,6 @@ The `skills/*/SKILL.md` files follow the universal skill format and work with an
 | **Gemini CLI** | Copy skill folders to `.gemini/skills/` | Skills only |
 | **OpenCode** | Copy skill folders to `.opencode/skills/` | Skills only |
 | **Cursor** | Copy skill folders to `.cursor/skills/` | Skills only |
-| **Codex CLI** | Copy skill folders to `.codex/skills/` | Skills only |
 | **Kiro** | Copy skill folders to `.kiro/skills/` | Skills only |
 
 ```bash
